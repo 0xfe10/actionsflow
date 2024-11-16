@@ -32,10 +32,13 @@ jobs:
           echo '' >> $TPL_FILE
           echo '' >> $TPL_FILE
 
-      - uses: fewensa/actions/tepusher@main
-        with:
-          template: .notify.local.md
-          token: ${{ secrets.WEPLUSBOT_TOKEN }}
-          receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
+      - name: Test
+        run: cat .notify.local.md
+
+      # - uses: fewensa/actions/tepusher@main
+      #   with:
+      #     template: .notify.local.md
+      #     token: ${{ secrets.WEPLUSBOT_TOKEN }}
+      #     receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
 
 
