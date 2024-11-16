@@ -13,31 +13,36 @@ jobs:
         run: |
           curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
           tar -zxf ./xq.tar.gz -C ./
-
-      - uses: actions/download-artifact@v3
-        ## https://github.com/orgs/community/discussions/50004
-        # with:
-        #   name: artifact-tpl
+          npm i fast-xml-parser
 
       - name: Generate template
         uses: actions/github-script@v2
         with:
           script: |
+            const { XMLParser, XMLValidator} = require("fast-xml-parser");
+            const parser = new XMLParser();
+
             const outputs = ${{ on.rss.outputs }};
-            const contents = [];
-            for (const output of outputs) {
-              contents.push('---');
-              contents.push(`author: ${output.author}`);
-              contents.push(`link: ${output.link}`);
-              contents.push(`time: ${output.pubDate}`);
-              contents.push(`title: ${output.title}`);
-              contents.push('---');
-              contents.push('');
-              contents.push(output.summary);
-              contents.push('');
-              contents.push('');
-            }
-            console.log(contents.join('\n'));
+            console.log(typeof outputs);
+            console.log(outputs);
+            console.log(JSON.stringify(outputs));
+
+
+            # const contents = [];
+            # for (const output of outputs) {
+            #   const _summary = parser.parse(output.summary);
+            #   contents.push('---');
+            #   contents.push(`author: ${output.author}`);
+            #   contents.push(`link: ${output.link}`);
+            #   contents.push(`time: ${output.pubDate}`);
+            #   contents.push(`title: ${output.title}`);
+            #   contents.push('---');
+            #   contents.push('');
+            #   contents.push(_summary.div.div.p);
+            #   contents.push('');
+            #   contents.push('');
+            # }
+            # console.log(contents.join('\n'));
 
       # - name: Generate template
       #   # env:
