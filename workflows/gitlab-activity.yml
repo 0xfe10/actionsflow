@@ -40,6 +40,10 @@ jobs:
           pwd
           cat $TPL_FILE
 
+
+      - name: Generate template
+        run: cat _tpl/.notify.local.md
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
