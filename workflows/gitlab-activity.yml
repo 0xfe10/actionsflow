@@ -20,10 +20,12 @@ jobs:
           PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
           TPL_FILE=.notify.local.md
 
+          echo ${{on.rss.outputs}}
+
           echo '---' >> $TPL_FILE
           echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
           echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
-          echo 'time: ${{on.rss.outputs.updated}}' >> $TPL_FILE
+          echo "title: ${title}" >> $TPL_FILE
           echo '---' >> $TPL_FILE
           echo '' >> $TPL_FILE
           echo $PARSED_SUMMARY >> $TPL_FILE
