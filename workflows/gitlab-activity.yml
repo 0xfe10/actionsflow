@@ -2,8 +2,8 @@ on:
   rss:
     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
 jobs:
-  print:
-    name: Print
+  generate:
+    name: Generate
     runs-on: ubuntu-latest
     steps:
 
@@ -12,14 +12,44 @@ jobs:
           curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
           tar -zxf ./xq.tar.gz -C ./
 
-      - name: Print Outputs
+      - name: Generate template
         env:
+          title: ${{on.rss.outputs.title}}
           summary: ${{on.rss.outputs.summary}}
         run: |
-          echo id: ${{on.rss.outputs.id}}
-          echo title: ${{on.rss.outputs.title}}
-          echo author: ${{on.rss.outputs.author}}
-          echo link: ${{on.rss.outputs.link}}
-          echo updated: ${{on.rss.outputs.updated}}
-          echo $summary | ./xq '.div.div.p'
+          PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
+          TPL_FILE=.notify.local.md
+
+          echo '---' >> $TPL_FILE
+          echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
+          echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
+          echo 'time: ${{on.rss.outputs.updated}}' >> $TPL_FILE
+          echo '---' >> $TPL_FILE
+          echo '' >> $TPL_FILE
+          echo $PARSED_SUMMARY >> $TPL_FILE
+          echo '' >> $TPL_FILE
+          echo '' >> $TPL_FILE
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact-tpl
+          path: .notify.local.md
+
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: artifact-tpl
+
+      - uses: fewensa/actions/tepusher@main
+        with:
+          template: .notify.local.md
+          token: ${{ secrets.WEPLUSBOT_TOKEN }}
+          receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
+
 
