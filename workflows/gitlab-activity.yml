@@ -20,37 +20,43 @@ jobs:
         #   name: artifact-tpl
 
       - name: Generate template
-        env:
-          title: ${{on.rss.outputs.title}}
-          summary: ${{on.rss.outputs.summary}}
+        # env:
+        #   title: ${{on.rss.outputs.title}}
+        #   summary: ${{on.rss.outputs.summary}}
         run: |
-          PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
-          mkdir -p _tpl
-          TPL_FILE=_tpl/.notify.local.md
+          echo "RSS Outputs:"
+          echo "{{#each on.rss.outputs}}"
+          echo "Title: {{this.title}}"
+          echo "Link: {{this.link}}"
+          echo "{{/each}}"
 
-          echo '---' >> $TPL_FILE
-          echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
-          echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
-          echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
-          echo "title: ${title}" >> $TPL_FILE
-          echo '---' >> $TPL_FILE
-          echo '' >> $TPL_FILE
-          echo $PARSED_SUMMARY >> $TPL_FILE
-          echo '' >> $TPL_FILE
-          echo '' >> $TPL_FILE
+          # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
+          # mkdir -p _tpl
+          # TPL_FILE=_tpl/.notify.local.md
 
-          pwd
-          cat $TPL_FILE
+          # echo '---' >> $TPL_FILE
+          # echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
+          # echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
+          # echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
+          # echo "title: ${title}" >> $TPL_FILE
+          # echo '---' >> $TPL_FILE
+          # echo '' >> $TPL_FILE
+          # echo $PARSED_SUMMARY >> $TPL_FILE
+          # echo '' >> $TPL_FILE
+          # echo '' >> $TPL_FILE
+
+          # pwd
+          # cat $TPL_FILE
 
 
-      - name: Generate template
-        run: cat _tpl/.notify.local.md
+      # - name: Generate template
+      #   run: cat _tpl/.notify.local.md
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifact-tpl
-          path: _tpl
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: artifact-tpl
+      #     path: _tpl
 
       # - uses: fewensa/actions/tepusher@main
       #   with:
