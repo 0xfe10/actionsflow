@@ -6,6 +6,13 @@ jobs:
     name: Print
     runs-on: ubuntu-latest
     steps:
+
+      - name: Setup deps
+        run: |
+          curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
+          tar -zxf ./xq.tar.gz -C ./
+
+
       - name: Print Outputs
         env:
           summary: ${{on.rss.outputs.summary}}
@@ -15,5 +22,5 @@ jobs:
           echo author: ${{on.rss.outputs.author}}
           echo link: ${{on.rss.outputs.link}}
           echo updated: ${{on.rss.outputs.updated}}
-          echo $summary | xq '.div.div.p'
+          echo $summary | ./xq '.div.div.p'
 
