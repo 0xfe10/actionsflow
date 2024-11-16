@@ -24,18 +24,26 @@ jobs:
         with:
           script: |
             const outputs = ${{ on.rss.outputs }};
-            console.log(outputs);
+            const contents = [];
+            for (const output of outputs) {
+              contents.push('---');
+              contents.push(`author: ${output.author}`);
+              contents.push(`link: ${output.link}`);
+              contents.push(`time: ${output.pubDate}`);
+              contents.push(`title: ${output.title}`);
+              contents.push('---');
+              contents.push('');
+              contents.push(output.summary);
+              contents.push('');
+              contents.push('');
+            }
+            console.log(contents.join('\n'));
 
       # - name: Generate template
       #   # env:
       #   #   title: ${{on.rss.outputs.title}}
       #   #   summary: ${{on.rss.outputs.summary}}
       #   run: |
-      #     echo "RSS Outputs: ${{on.rss.outputs.title}}"
-      #     echo "{{#each on.rss.outputs}}"
-      #     echo "Title: {{this.title}}"
-      #     echo "Link: {{this.link}}"
-      #     echo "{{/each}}"
 
       #     # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
       #     # mkdir -p _tpl
