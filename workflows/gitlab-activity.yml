@@ -1,8 +1,6 @@
 on:
   rss:
     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
-    # config:
-    #   limit: 15
 jobs:
   print:
     name: Print
@@ -10,18 +8,12 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          id: ${{on.rss.outputs.id}}
-          title: ${{on.rss.outputs.title}}
-          author: ${{on.rss.outputs.author}}
-          link: ${{on.rss.outputs.link}}
           summary: ${{on.rss.outputs.summary}}
-          updated: ${{on.rss.outputs.updated}}
         run: |
-          echo id: $id
-          echo title: $title
-          echo author: $author
-          echo link: $link
-          echo updated: $updated
-          echo summary: $summary
-          #echo $summary | xq '.div.div.p'
+          echo id: ${{on.rss.outputs.id}}
+          echo title: ${{on.rss.outputs.title}}
+          echo author: ${{on.rss.outputs.author}}
+          echo link: ${{on.rss.outputs.link}}
+          echo updated: ${{on.rss.outputs.updated}}
+          echo $summary | xq '.div.div.p'
 
