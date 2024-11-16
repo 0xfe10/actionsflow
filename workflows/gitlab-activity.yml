@@ -21,4 +21,4 @@ jobs:
           echo author: $author
           echo link: $link
           echo updated: $updated
-          echo summary: $(echo $summary | xq '.div.div.p')
+          echo $summary | xq '.div.div.p'
