@@ -1,23 +1,41 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=300
+    url: https://actionsflow.github.io/test-page/hn-rss.xml
     config:
       outputsMode: combine
-      exportOutputs: true
 jobs:
-  outputs:
-    name: outputs
+  print:
+    name: Print
     runs-on: ubuntu-latest
     steps:
-      - name: Get outputs
-        uses: actions/github-script@v2
+      - name: Print Outputs
         env:
-          OUTPUTS_PATH: ${{ on.rss.outputs.path }}
-        with:
-          script: |
-            const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
-            console.log('outputs',outputs)
-            return true
+          title: ${{on.rss.outputs[0].title}}
+          length: ${{ on.rss.outputs.length }}
+        run: |
+          echo title: $title
+          echo length: $length
+
+# on:
+#   rss:
+#     url: https://hnrss.org/newest?points=300
+#     config:
+#       outputsMode: combine
+#       exportOutputs: true
+# jobs:
+#   outputs:
+#     name: outputs
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get outputs
+#         uses: actions/github-script@v2
+#         env:
+#           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+#         with:
+#           script: |
+#             const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+#             console.log('outputs',outputs)
+#             return true
 
 # on:
 #   rss:
