@@ -1,6 +1,8 @@
 on:
   rss:
     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
+    config:
+      outputsMode: combine
 jobs:
   generate:
     name: Generate
