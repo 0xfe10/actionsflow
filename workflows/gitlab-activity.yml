@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=11
+    url: https://hnrss.org/newest?points=12
     config:
       outputsMode: combine
       exportOutputs: true
@@ -12,10 +12,8 @@ jobs:
  
       - name: Check
         run: |
-          apt-get -y install tree
           pwd
-          ls
-          tree
+          ls -lah
 
       - name: Get outputs
         uses: actions/github-script@v2
