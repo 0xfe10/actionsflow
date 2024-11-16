@@ -12,6 +12,7 @@ jobs:
  
       - name: Check
         run: |
+          apt-get -y install tree
           pwd
           ls
           tree
