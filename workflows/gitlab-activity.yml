@@ -1,21 +1,14 @@
 on:
   rss:
-    url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
+    url: https://hnrss.org/newest?points=300
     config:
       outputsMode: combine
       exportOutputs: true
 jobs:
-  generate:
-    name: Generate
+  outputs:
+    name: outputs
     runs-on: ubuntu-latest
     steps:
-
-      - name: Setup deps
-        run: |
-          curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
-          tar -zxf ./xq.tar.gz -C ./
-          npm i fast-xml-parser
-
       - name: Get outputs
         uses: actions/github-script@v2
         env:
@@ -26,68 +19,96 @@ jobs:
             console.log('outputs',outputs)
             return true
 
-      # - name: Generate template
-      #   uses: actions/github-script@v2
-      #   env:
-      #     OUTPUTS_PATH: ${{ on.rss.outputs.path }}
-      #   with:
-      #     script: |
-      #       const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
-      #       console.log('outputs', outputs)
+# on:
+#   rss:
+#     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
+#     config:
+#       outputsMode: combine
+#       exportOutputs: true
+# jobs:
+#   generate:
+#     name: Generate
+#     runs-on: ubuntu-latest
+#     steps:
+
+#       # - name: Setup deps
+#       #   run: |
+#       #     curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
+#       #     tar -zxf ./xq.tar.gz -C ./
+#       #     npm i fast-xml-parser
+
+#       - name: Get outputs
+#         uses: actions/github-script@v2
+#         env:
+#           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+#         with:
+#           script: |
+#             const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+#             console.log('outputs',outputs)
+#             return true
+
+#       # - name: Generate template
+#       #   uses: actions/github-script@v2
+#       #   env:
+#       #     OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+#       #   with:
+#       #     script: |
+#       #       const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+#       #       console.log('outputs', outputs)
 
 
-            # const contents = [];
-            # for (const output of outputs) {
-            #   const _summary = parser.parse(output.summary);
-            #   contents.push('---');
-            #   contents.push(`author: ${output.author}`);
-            #   contents.push(`link: ${output.link}`);
-            #   contents.push(`time: ${output.pubDate}`);
-            #   contents.push(`title: ${output.title}`);
-            #   contents.push('---');
-            #   contents.push('');
-            #   contents.push(_summary.div.div.p);
-            #   contents.push('');
-            #   contents.push('');
-            # }
-            # console.log(contents.join('\n'));
+#             # const contents = [];
+#             # for (const output of outputs) {
+#             #   const _summary = parser.parse(output.summary);
+#             #   contents.push('---');
+#             #   contents.push(`author: ${output.author}`);
+#             #   contents.push(`link: ${output.link}`);
+#             #   contents.push(`time: ${output.pubDate}`);
+#             #   contents.push(`title: ${output.title}`);
+#             #   contents.push('---');
+#             #   contents.push('');
+#             #   contents.push(_summary.div.div.p);
+#             #   contents.push('');
+#             #   contents.push('');
+#             # }
+#             # console.log(contents.join('\n'));
 
-      # - name: Generate template
-      #   # env:
-      #   #   title: ${{on.rss.outputs.title}}
-      #   #   summary: ${{on.rss.outputs.summary}}
-      #   run: |
+#       # - name: Generate template
+#       #   # env:
+#       #   #   title: ${{on.rss.outputs.title}}
+#       #   #   summary: ${{on.rss.outputs.summary}}
+#       #   run: |
 
-      #     # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
-      #     # mkdir -p _tpl
-      #     # TPL_FILE=_tpl/.notify.local.md
+#       #     # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
+#       #     # mkdir -p _tpl
+#       #     # TPL_FILE=_tpl/.notify.local.md
 
-      #     # echo '---' >> $TPL_FILE
-      #     # echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
-      #     # echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
-      #     # echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
-      #     # echo "title: ${title}" >> $TPL_FILE
-      #     # echo '---' >> $TPL_FILE
-      #     # echo '' >> $TPL_FILE
-      #     # echo $PARSED_SUMMARY >> $TPL_FILE
-      #     # echo '' >> $TPL_FILE
-      #     # echo '' >> $TPL_FILE
+#       #     # echo '---' >> $TPL_FILE
+#       #     # echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
+#       #     # echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
+#       #     # echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
+#       #     # echo "title: ${title}" >> $TPL_FILE
+#       #     # echo '---' >> $TPL_FILE
+#       #     # echo '' >> $TPL_FILE
+#       #     # echo $PARSED_SUMMARY >> $TPL_FILE
+#       #     # echo '' >> $TPL_FILE
+#       #     # echo '' >> $TPL_FILE
 
-      #     # pwd
-      #     # cat $TPL_FILE
+#       #     # pwd
+#       #     # cat $TPL_FILE
 
 
-      # - name: Generate template
-      #   run: cat _tpl/.notify.local.md
+#       # - name: Generate template
+#       #   run: cat _tpl/.notify.local.md
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: artifact-tpl
-      #     path: _tpl
+#       # - name: Upload artifacts
+#       #   uses: actions/upload-artifact@v3
+#       #   with:
+#       #     name: artifact-tpl
+#       #     path: _tpl
 
-      # - uses: fewensa/actions/tepusher@main
-      #   with:
-      #     template: .notify.local.md
-      #     token: ${{ secrets.WEPLUSBOT_TOKEN }}
-      #     receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
+#       # - uses: fewensa/actions/tepusher@main
+#       #   with:
+#       #     template: .notify.local.md
+#       #     token: ${{ secrets.WEPLUSBOT_TOKEN }}
+#       #     receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
