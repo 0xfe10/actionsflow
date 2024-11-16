@@ -22,7 +22,7 @@ jobs:
             const { XMLParser, XMLValidator} = require("fast-xml-parser");
             const parser = new XMLParser();
 
-            const outputs = ${{ on.rss.outputs }};
+            const outputs = `${{ on.rss.outputs }}`;
             console.log(typeof outputs);
             console.log(outputs);
             console.log(JSON.stringify(outputs));
