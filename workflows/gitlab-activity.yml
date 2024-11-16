@@ -23,7 +23,8 @@ jobs:
           summary: ${{on.rss.outputs.summary}}
         run: |
           PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
-          TPL_FILE=.notify.local.md
+          mkdir -p _tpl
+          TPL_FILE=_tpl/.notify.local.md
 
           echo '---' >> $TPL_FILE
           echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
@@ -36,13 +37,14 @@ jobs:
           echo '' >> $TPL_FILE
           echo '' >> $TPL_FILE
 
+          pwd
           cat $TPL_FILE
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: artifact-tpl
-          path: .notify.local.md
+          path: _tpl
 
       # - uses: fewensa/actions/tepusher@main
       #   with:
