@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=300&count=3
+    url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
 jobs:
   print:
     name: Print
@@ -9,9 +9,11 @@ jobs:
       - name: Print Outputs
         env:
           title: ${{on.rss.outputs.title}}
-          contentSnippet: ${{on.rss.outputs.contentSnippet}}
+          author: ${{on.rss.outputs.author}}
           link: ${{on.rss.outputs.link}}
+          summary: ${{on.rss.outputs.summary}}
         run: |
           echo title: $title
-          echo contentSnippet: $contentSnippet
+          echo author: $author
           echo link: $link
+          echo summary: $summary
