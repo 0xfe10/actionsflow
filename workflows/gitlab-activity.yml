@@ -3,6 +3,7 @@ on:
     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
     config:
       outputsMode: combine
+      exportOutputs: true
 jobs:
   generate:
     name: Generate
@@ -17,15 +18,12 @@ jobs:
 
       - name: Generate template
         uses: actions/github-script@v2
+        env:
+          OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
-            const { XMLParser, XMLValidator} = require("fast-xml-parser");
-            const parser = new XMLParser();
-
-            const outputs = `${{ on.rss.outputs }}`;
-            console.log(typeof outputs);
-            console.log(outputs);
-            console.log(JSON.stringify(outputs));
+            const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+            console.log('outputs', outputs)
 
 
             # const contents = [];
