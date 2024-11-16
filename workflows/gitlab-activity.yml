@@ -15,8 +15,10 @@ jobs:
           author: ${{on.rss.outputs.author}}
           link: ${{on.rss.outputs.link}}
           summary: ${{on.rss.outputs.summary}}
+          updated: ${{on.rss.outputs.updated}}
         run: |
           echo id: $id
           echo author: $author
           echo link: $link
-          echo summary: $summary
+          echo updated: $updated
+          echo summary: $(echo $summary | xq '.div.div.p')
