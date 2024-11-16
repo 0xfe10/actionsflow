@@ -47,4 +47,3 @@ jobs:
       #     template: .notify.local.md
       #     token: ${{ secrets.WEPLUSBOT_TOKEN }}
       #     receiver: "#6cfbef7cc90c4d1ab0842b13e483fafb"
-
