@@ -30,22 +30,6 @@ jobs:
           echo '' >> $TPL_FILE
           echo '' >> $TPL_FILE
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifact-tpl
-          path: .notify.local.md
-
-
-  notify:
-    name: Notify
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: artifact-tpl
-
       - uses: fewensa/actions/tepusher@main
         with:
           template: .notify.local.md
