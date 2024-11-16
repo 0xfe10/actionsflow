@@ -12,7 +12,7 @@ jobs:
           curl -L -o xq.tar.gz https://github.com/sibprogrammer/xq/releases/download/v1.2.5/xq_1.2.5_linux_amd64.tar.gz
           tar -zxf ./xq.tar.gz -C ./
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v3
         with:
           name: artifact-tpl
 
@@ -37,7 +37,7 @@ jobs:
           echo '' >> $TPL_FILE
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: artifact-tpl
           path: .notify.local.md
