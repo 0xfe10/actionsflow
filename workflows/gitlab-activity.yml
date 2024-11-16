@@ -18,7 +18,9 @@ jobs:
           updated: ${{on.rss.outputs.updated}}
         run: |
           echo id: $id
+          echo title: $title
           echo author: $author
           echo link: $link
           echo updated: $updated
-          echo $summary | xq '.div.div.p'
+          echo summary: $summary
+          #echo $summary | xq '.div.div.p'
