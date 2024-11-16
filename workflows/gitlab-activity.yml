@@ -20,33 +20,40 @@ jobs:
         #   name: artifact-tpl
 
       - name: Generate template
-        # env:
-        #   title: ${{on.rss.outputs.title}}
-        #   summary: ${{on.rss.outputs.summary}}
-        run: |
-          echo "RSS Outputs:"
-          echo "{{#each on.rss.outputs}}"
-          echo "Title: {{this.title}}"
-          echo "Link: {{this.link}}"
-          echo "{{/each}}"
+        uses: actions/github-script@v2
+        with:
+          script: |
+            const outputs = ${{ on.rss.outputs }};
+            console.log(outputs);
 
-          # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
-          # mkdir -p _tpl
-          # TPL_FILE=_tpl/.notify.local.md
+      # - name: Generate template
+      #   # env:
+      #   #   title: ${{on.rss.outputs.title}}
+      #   #   summary: ${{on.rss.outputs.summary}}
+      #   run: |
+      #     echo "RSS Outputs: ${{on.rss.outputs.title}}"
+      #     echo "{{#each on.rss.outputs}}"
+      #     echo "Title: {{this.title}}"
+      #     echo "Link: {{this.link}}"
+      #     echo "{{/each}}"
 
-          # echo '---' >> $TPL_FILE
-          # echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
-          # echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
-          # echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
-          # echo "title: ${title}" >> $TPL_FILE
-          # echo '---' >> $TPL_FILE
-          # echo '' >> $TPL_FILE
-          # echo $PARSED_SUMMARY >> $TPL_FILE
-          # echo '' >> $TPL_FILE
-          # echo '' >> $TPL_FILE
+      #     # PARSED_SUMMARY=$(echo $summary | ./xq -q 'div > div > p')
+      #     # mkdir -p _tpl
+      #     # TPL_FILE=_tpl/.notify.local.md
 
-          # pwd
-          # cat $TPL_FILE
+      #     # echo '---' >> $TPL_FILE
+      #     # echo 'author: ${{on.rss.outputs.author}}' >> $TPL_FILE
+      #     # echo 'link: ${{on.rss.outputs.link}}' >> $TPL_FILE
+      #     # echo 'time: ${{on.rss.outputs.pubDate}}' >> $TPL_FILE
+      #     # echo "title: ${title}" >> $TPL_FILE
+      #     # echo '---' >> $TPL_FILE
+      #     # echo '' >> $TPL_FILE
+      #     # echo $PARSED_SUMMARY >> $TPL_FILE
+      #     # echo '' >> $TPL_FILE
+      #     # echo '' >> $TPL_FILE
+
+      #     # pwd
+      #     # cat $TPL_FILE
 
 
       # - name: Generate template
