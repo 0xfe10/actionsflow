@@ -16,14 +16,24 @@ jobs:
           tar -zxf ./xq.tar.gz -C ./
           npm i fast-xml-parser
 
-      - name: Generate template
+      - name: Get outputs
         uses: actions/github-script@v2
         env:
           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
             const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
-            console.log('outputs', outputs)
+            console.log('outputs',outputs)
+            return true
+
+      # - name: Generate template
+      #   uses: actions/github-script@v2
+      #   env:
+      #     OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+      #   with:
+      #     script: |
+      #       const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+      #       console.log('outputs', outputs)
 
 
             # const contents = [];
