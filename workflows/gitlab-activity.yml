@@ -1,8 +1,8 @@
 on:
   rss:
     url: https://gitlab.com/prtmax.atom?feed_token=${{ secrets.GITLAB_FEED_TOKEN }}
-    config:
-      limit: 15
+    # config:
+    #   limit: 15
 jobs:
   print:
     name: Print
@@ -10,12 +10,13 @@ jobs:
     steps:
       - name: Print Outputs
         env:
+          id: ${{on.rss.outputs.id}}
           title: ${{on.rss.outputs.title}}
           author: ${{on.rss.outputs.author}}
           link: ${{on.rss.outputs.link}}
           summary: ${{on.rss.outputs.summary}}
         run: |
-          echo title: $title
+          echo id: $id
           echo author: $author
           echo link: $link
           echo summary: $summary
