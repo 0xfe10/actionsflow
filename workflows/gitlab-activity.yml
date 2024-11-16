@@ -13,8 +13,9 @@ jobs:
           tar -zxf ./xq.tar.gz -C ./
 
       - uses: actions/download-artifact@v3
-        with:
-          name: artifact-tpl
+        ## https://github.com/orgs/community/discussions/50004
+        # with:
+        #   name: artifact-tpl
 
       - name: Generate template
         env:
