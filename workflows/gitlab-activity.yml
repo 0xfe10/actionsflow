@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=20
+    url: https://hnrss.org/newest?points=21
     config:
       outputsMode: combine
       #exportOutputs: true
@@ -22,6 +22,7 @@ jobs:
         with:
           script: |
             const o = ${{ on.rss.outputs }}
+            console.log(typeof o);
             console.log(o);
 
 # on:
