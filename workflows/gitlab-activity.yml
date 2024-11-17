@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=21
+    url: https://hnrss.org/newest?points=22
     config:
       outputsMode: combine
       #exportOutputs: true
@@ -10,20 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
  
-      - name: Check
-        run: |
-          pwd
-          ls -lah
-
       - name: Get outputs
         uses: actions/github-script@v2
         env:
           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
-            const o = ${{ on.rss.outputs }}
+            const ofn = ${{ on.rss.outputs }}
+            const outputs = ofn();
             console.log(typeof o);
             console.log(o);
+            console.log(outputs);
 
 # on:
 #   rss:
