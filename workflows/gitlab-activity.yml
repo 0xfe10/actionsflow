@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=40
+    url: https://hnrss.org/newest?points=41
     config:
       outputsMode: combine
       #exportOutputs: true
@@ -12,14 +12,15 @@ jobs:
  
       - name: Get outputs
         uses: actions/github-script@v2
-        env:
-          OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
-            const ofnx = ${{ on.rss.outputs }}
 
-            for (let i = 0; i < ofnx.length; i++) {
-                console.log(ofnx[i]);
+            for (let i = 0; i < ${{ on.rss.outputs.length }}; i++) {
+                console.log(${{ on.rss.outputs[i].title }});
+                console.log(${{ on.rss.outputs[i].link }});
+                console.log(${{ on.rss.outputs[i].author }});
+                console.log(${{ on.rss.outputs[i].pubDate }});
+                console.log(${{ on.rss.outputs[i].summary }});
             }
 
 # on:
