@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=101
+    url: https://hnrss.org/newest?points=102
     config:
       outputsMode: combine
       #exportOutputs: true
