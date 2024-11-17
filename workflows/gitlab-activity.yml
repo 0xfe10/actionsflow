@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=18
+    url: https://hnrss.org/newest?points=19
     config:
       outputsMode: combine
       #exportOutputs: true
@@ -24,9 +24,6 @@ jobs:
             const o = ${{ on.rss.outputs }}
             const outputs = JSON.parse(o);
             console.log(outputs);
-            #const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
-            #console.log('outputs',outputs)
-            #return true
 
 # on:
 #   rss:
