@@ -1,15 +1,21 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=31
+    url: https://hnrss.org/newest?points=32
     config:
       outputsMode: combine
-      #exportOutputs: true
+      exportOutputs: true
+      outputsDir: outputs
 jobs:
   outputs:
     name: outputs
     runs-on: ubuntu-latest
     steps:
  
+      - name: Check
+        run: |
+          ls -la
+          ls -la outputs
+
       - name: Get outputs
         uses: actions/github-script@v2
         with:
