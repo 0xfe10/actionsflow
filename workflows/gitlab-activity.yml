@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=100
+    url: https://hnrss.org/newest?points=101
     config:
       outputsMode: combine
       #exportOutputs: true
@@ -18,10 +18,9 @@ jobs:
           script: |
             const ofnx = ${{ on.rss.outputs }}
 
-            const props = Object.getOwnPropertyNames(ofnx);
-            props.forEach(prop => {
-                console.log(`${prop}: ${ofnx[prop]}`);
-            });
+            for (let i = 0; i < ofnx.length; i++) {
+                console.log(ofnx[i]);
+            }
 
 # on:
 #   rss:
