@@ -16,11 +16,12 @@ jobs:
           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
-            const ofn = ${{ on.rss.outputs }}
-            const outputs = ofn();
-            console.log(typeof o);
-            console.log(o);
-            console.log(outputs);
+            const ofnx = ${{ on.rss.outputs }}
+
+            const props = Object.getOwnPropertyNames(ofnx);
+            props.forEach(prop => {
+                console.log(`${prop}: ${ofnx[prop]}`);
+            });
 
 # on:
 #   rss:
